@@ -1,9 +1,16 @@
+import { prisma } from '@/prisma'
+import { Post } from '@prisma/client'
+
 export class PostService {
-	getAllPosts() {
-		return ['Post1', 'Post2', 'Post3', 'Post4', 'Post5']
+	async getAllPosts(): Promise<Post[]> {
+		return await prisma.post.findMany()
 	}
 
-	createPost(body: any) {
-		return `New Post ${body.name}`
+	async getPostByUrl(url: string): Promise<Post | null> {
+		return await prisma.post.findFirst({
+			where: {
+				title: url.split('-').join(' '),
+			},
+		})
 	}
 }

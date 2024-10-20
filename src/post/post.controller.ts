@@ -4,13 +4,27 @@ import { PostService } from './post.service'
 const postService = new PostService()
 
 export class PostController {
-	getAllPosts(_: Request, res: Response) {
-		const posts = postService.getAllPosts()
-		res.status(200).json(posts)
+	async getAllPosts(_: Request, res: Response) {
+		try {
+			const posts = await postService.getAllPosts()
+			res.status(200).json(posts)
+		} catch (error) {
+			res.status(500).json(error)
+		}
 	}
 
-	createPost(req: Request, res: Response) {
-		const post = postService.createPost({ ...req.body })
-		res.status(201).json(post)
+	async getPostByUrl(req: Request, res: Response) {
+		try {
+			const post = await postService.getPostByUrl(req.params.url)
+
+			if (!post) {
+				res.status(404).json({ error: 'Post not found!' })
+				return
+			}
+
+			res.status(200).json(post)
+		} catch (error) {
+			res.status(500).json(error)
+		}
 	}
 }

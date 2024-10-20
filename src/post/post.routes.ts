@@ -6,6 +6,6 @@ const postController = new PostController()
 
 router.get('/', postController.getAllPosts)
 
-router.post('/create', postController.createPost)
+router.get('/:url', postController.getPostByUrl)
 
 export const postRouter = router
