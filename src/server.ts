@@ -1,3 +1,4 @@
+import cors from 'cors'
 import { config } from 'dotenv'
 import express, { NextFunction, Request, Response } from 'express'
 import helmet from 'helmet'
@@ -14,6 +15,7 @@ async function main() {
 
 	app.use(helmet())
 	app.use(express.json())
+	app.use(cors())
 
 	app.use('/posts', postRouter)
 	app.use('/user', userRouter)

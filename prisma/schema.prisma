@@ -15,6 +15,7 @@ model User {
 model Post {
   id         Int    @id @default(autoincrement())
   author     String
+  authorImg  String @map("author_img")
   tag        String
   title      String
   content    String
